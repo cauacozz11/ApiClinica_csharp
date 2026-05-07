@@ -4,9 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-// Swagger: gera a interface visual de documentação da API
-builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi();
 
 // Registra o AppDbContext como serviço, usando SQLite com a connection string do appsettings.json
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -16,9 +14,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    // Disponibiliza o Swagger UI em /swagger (apenas em ambiente de desenvolvimento)
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
