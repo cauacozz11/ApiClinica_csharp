@@ -123,28 +123,10 @@ public class PacientesController : ControllerBase
         return NoContent(); // 204: sucesso sem corpo de resposta
     }
 
-    // Valida CPF usando o algoritmo oficial de dois dígitos verificadores
     private static bool ValidarCpf(string cpf)
     {
-        cpf = new string(cpf.Where(char.IsDigit).ToArray());
-        // CPF deve ter 11 dígitos e não pode ser uma sequência repetida (ex: 111.111.111-11)
-        if (cpf.Length != 11 || cpf.Distinct().Count() == 1) return false;
-
-        // Calcula e confere o 1º dígito verificador
-        int soma = 0;
-        for (int i = 0; i < 9; i++)
-            soma += (cpf[i] - '0') * (10 - i);
-        int resto = soma % 11;
-        int digito1 = resto < 2 ? 0 : 11 - resto;
-        if (digito1 != (cpf[9] - '0')) return false;
-
-        // Calcula e confere o 2º dígito verificador
-        soma = 0;
-        for (int i = 0; i < 10; i++)
-            soma += (cpf[i] - '0') * (11 - i);
-        resto = soma % 11;
-        int digito2 = resto < 2 ? 0 : 11 - resto;
-        return digito2 == (cpf[10] - '0');
+        var digits = new string(cpf.Where(char.IsDigit).ToArray());
+        return digits.Length == 11;
     }
 
     // Usa a classe MailAddress do .NET para validar o formato do e-mail
