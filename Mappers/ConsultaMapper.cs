@@ -1,13 +1,13 @@
 using ApiClinica.DTOs;
 using ApiClinica.Models;
+using ApiClinica.Interfaces;
 
 namespace ApiClinica.Mappers;
 
-// Mapper manual: converte entre Model (banco) e DTOs (entrada/saída da API)
-public static class ConsultaMapper
+public class ConsultaMapper : IConsultaMapper
 {
-    // Converte Model → ReadDTO (usado nas respostas GET)
-    public static ConsultaReadDTO ToReadDTO(Consulta consulta) => new()
+
+    public ConsultaReadDTO ToReadDTO(Consulta consulta) => new()
     {
         Id = consulta.Id,
         PacienteId = consulta.PacienteId,
@@ -15,8 +15,8 @@ public static class ConsultaMapper
         DataHora = consulta.DataHora
     };
 
-    // Converte CreateDTO → Model (usado no POST antes de salvar no banco)
-    public static Consulta ToModel(ConsultaCreateDTO dto) => new()
+
+    public Consulta ToModel(ConsultaCreateDTO dto) => new()
     {
         PacienteId = dto.PacienteId,
         MedicoId = dto.MedicoId,

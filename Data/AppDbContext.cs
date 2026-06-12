@@ -13,6 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<Paciente> Pacientes { get; set; }
     public DbSet<Medico> Medicos { get; set; }
     public DbSet<Consulta> Consultas { get; set; }
+    public DbSet<Usuario> Usuarios { get; set; }
 
     // Configura os relacionamentos entre as tabelas (chamado automaticamente pelo EF Core)
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,14 +1,13 @@
 using ApiClinica.DTOs;
 using ApiClinica.Models;
+using ApiClinica.Interfaces;
 
 namespace ApiClinica.Mappers;
 
-// Mapper manual: converte entre Model (banco) e DTOs (entrada/saída da API)
-// Evita expor o Model diretamente e mantém controle total sobre os campos trafegados
-public static class PacienteMapper
+public class PacienteMapper : IPacienteMapper
 {
-    // Converte Model → ReadDTO (usado nas respostas GET)
-    public static PacienteReadDTO ToReadDTO(Paciente paciente) => new()
+    
+    public PacienteReadDTO ToReadDTO(Paciente paciente) => new()
     {
         Id = paciente.Id,
         Nome = paciente.Nome,
@@ -18,8 +17,7 @@ public static class PacienteMapper
         Cpf = paciente.Cpf
     };
 
-    // Converte CreateDTO → Model (usado no POST antes de salvar no banco)
-    public static Paciente ToModel(PacienteCreateDTO dto) => new()
+    public Paciente ToModel(PacienteCreateDTO dto) => new()
     {
         Nome = dto.Nome,
         Email = dto.Email,
